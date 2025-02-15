@@ -3,15 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة القفز</title>
+    <title>C Code 2080</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="game">
-        <div id="character"></div>
-        <div id="obstacle"></div>
-    </div>
-    <p id="score">النقاط: 0</p>
-    <script src="script.js"></script>
+
+    <header class="header">
+        <h1>C Code 2080</h1>
+    </header>
+
+    <section class="about">
+        <h2>عن C Code</h2>
+        <p>شركة برمجيات تقدم خدمات و مشاريع برمجية و مع خدمة تطوير متاجر إلكترونية صغيرة بمعنى أن الشركة تتبنى المشروع و تقوم بتطويره.</p>
+    </section>
+
+    <section class="services">
+        <div class="service">
+            <h3>تصميم هوية بصرية</h3>
+            <p>تصميم احترافي كامل</p>
+        </div>
+        <div class="service">
+            <h3>بناء موقع إلكتروني</h3>
+            <p>موقع متفاعل 100% حسب الطلب</p>
+        </div>
+        <div class="service">
+            <h3>تطوير المتاجر</h3>
+            <p>من الصفر إلى النجاح</p>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2>معرض الصور</h2>
+        <div id="image-container">
+            <p>لا توجد صور مرفوعة بعد.</p>
+        </div>
+        <label for="image-upload" class="upload-button">رفع صورة</label>
+        <input type="file" id="image-upload" accept="image/*" style="display: none;" onchange="uploadImage(event)">
+    </section>
+
+    <section class="contact">
+        <h2>طرق التواصل</h2>
+        <p>Phone: +218919784932</p>
+        <p>Email: <a href="mailto:ccode2080@gmail.com">ccode2080@gmail.com</a></p>
+        <p>Social: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2080 C Code. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function uploadImage(event) {
+            const container = document.getElementById('image-container');
+            const file = event.target.files[0];
+
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = "Uploaded Image";
+                img.style.width = "200px";
+                img.style.margin = "10px";
+                container.appendChild(img);
+                container.querySelector('p')?.remove();
+            }
+        }
+    </script>
+
 </body>
 </html>
