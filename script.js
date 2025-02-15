@@ -1,27 +1,64 @@
-document.getElementById('task-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+const character = document.getElementById("character");
+const obstacle = document.getElementById("obstacle");
+const scoreElement = document.getElementById("score");
 
-    // جمع البيانات من النموذج
-    const taskInput = document.getElementById('task-input').value;
-    const priority = document.getElementById('priority-select').value;
+let isJumping = false;
+let score = 0;
 
-    // إنشاء عنصر المهمة
-    const taskItem = document.createElement('li');
-    taskItem.textContent = taskInput;
+// وظيفة القفز
+function jump() {
+    if (isJumping) return;
 
-    // إضافة فئة حسب الأولوية
-    taskItem.classList.add(`priority-${priority}`);
+    isJumping = true;
+    let jumpHeight = 0;
+    const jumpInterval = setInterval(() => {
+        if (jumpHeight >= 150) {
+            clearInterval(jumpInterval);
+            const fallInterval = setInterval(() => {
+                if (jumpHeight <= 0) {
+                    clearInterval(fallInterval);
+                    isJumping = false;
+                }
+                jumpHeight -= 5;
+                character.style.bottom = `${jumpHeight}px`;
+            }, 20);
+        }
+        jumpHeight += 5;
+        character.style.bottom = `${jumpHeight}px`;
+    }, 20);
+}
 
-    // إضافة زر حذف
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.addEventListener('click', () => taskItem.remove());
+// التحقق من الاصطدام
+function checkCollision() {
+    const characterRect = character.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
 
-    taskItem.appendChild(deleteButton);
+    if (
+        characterRect.right > obstacleRect.left &&
+        characterRect.left < obstacleRect.right &&
+        characterRect.bottom > obstacleRect.top
+    ) {
+        alert(`انتهت اللعبة! مجموع النقاط: ${score}`);
+        score = 0;
+        scoreElement.textContent = `النقاط: ${score}`;
+    }
+}
 
-    // إضافة المهمة إلى القائمة
-    document.getElementById('task-list').appendChild(taskItem);
+// تحديث النقاط
+function updateScore() {
+    score++;
+    scoreElement.textContent = `النقاط: ${score}`;
+}
 
-    // إعادة تعيين النموذج
-    document.getElementById('task-form').reset();
+// تشغيل اللعبة
+setInterval(() => {
+    checkCollision();
+    updateScore();
+}, 200);
+
+// استماع إلى القفز عند الضغط على المسافة
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space") {
+        jump();
+    }
 });

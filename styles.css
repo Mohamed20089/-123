@@ -1,69 +1,55 @@
+/* تصميم اللعبة */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
     margin: 0;
     padding: 0;
-}
-
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #4CAF50;
-}
-
-form {
+    font-family: Arial, sans-serif;
+    background-color: #446c8f;
     display: flex;
-    gap: 10px;
-}
-
-input, select, button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background-color: #f1f1f1;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-.priority-high {
-    border-left: 5px solid red;
+#game {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    background-color: #5b50c0;
+    overflow: hidden;
+    border: 2px solid #bd1818;
 }
 
-.priority-medium {
-    border-left: 5px solid orange;
+#character {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(25, 153, 42);
+    border-radius: 5px;
 }
 
-.priority-low {
-    border-left: 5px solid green;
+#obstacle {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(253, 30, 30);
+    animation: moveObstacle 2s linear infinite;
+}
+
+@keyframes moveObstacle {
+    0% {
+        right: -50px;
+    }
+    100% {
+        right: 650px;
+    }
+}
+
+#score {
+    font-size: 20px;
+    margin-top: 10px;
 }
